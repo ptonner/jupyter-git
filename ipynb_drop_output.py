@@ -67,13 +67,13 @@ nb = sys.stdin.read()
 json_in = json.loads(nb)
 
 nb_metadata = json_in["metadata"]
-suppress_output = False
-if "git" in nb_metadata:
-    if "suppress_outputs" in nb_metadata["git"] and nb_metadata["git"]["suppress_outputs"]:
-        suppress_output = True
-if not suppress_output:
-    sys.stdout.write(nb)
-    exit()
+# suppress_output = True
+# if "git" in nb_metadata:
+#     if "suppress_outputs" in nb_metadata["git"] and nb_metadata["git"]["suppress_outputs"]:
+#         suppress_output = True
+# if not suppress_output:
+#     sys.stdout.write(nb)
+#     exit()
 
 def strip_output_from_cell(cell):
     if "outputs" in cell:
@@ -84,4 +84,4 @@ def strip_output_from_cell(cell):
 for cell in json_in["cells"]:
     strip_output_from_cell(cell)
 
-json.dump(json_in, sys.stdout, sort_keys=True, indent=1, separators=(",",": "))
+json.dump(json_in, sys.stdout, sort_keys=True, indent=1, separators=(",",": "), ensure_ascii=False)
